@@ -351,7 +351,7 @@ case "$1" in
 		echo "A total of $(wc -l count | sed 's/count//g')users used me."
 		;;
 	"broadcast")
-		#echo "Sending the broadcast $* to $(wc -l count | sed 's/count//g')users."
+		echo "Sending the broadcast $* to $(wc -l count | sed 's/count//g')users."
 		[ $(wc -l count | sed 's/ count//g') -gt 300 ] && sleep="sleep 0.5"
 		shift
 		for f in $(cat count);do send_message ${f//COUNT} "$*"; $sleep;done
@@ -367,13 +367,10 @@ case "$1" in
 	"help")
 		less README.md
 		;;
-	"sendmessage")
-		send_message "$2" "$3"
-		echo "message sent"
+	"attach")
+		tmux attach -t $ME
 		;;
-	"help")
-		less README.md
+	*)
+		echo "Available arguments: outproc, count, broadcast, start, kill, help, attach"
 		;;
-
-
 esac
